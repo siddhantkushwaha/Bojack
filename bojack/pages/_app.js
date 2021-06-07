@@ -1,7 +1,9 @@
-import Head from 'next/head'
-
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-icons/font/bootstrap-icons.css'
 import '../styles/globals.css'
-import Sidebar from '../components/Sidebar'
+
+import Head from 'next/head'
+import Sidebar from '../components/sidebar'
 
 function MyApp({Component, pageProps}) {
     return (
