@@ -1,7 +1,7 @@
 .sidebar {
     margin: 0;
     padding: 0;
-    width: 200px;
+    width: 250px;
     background-color: #f1f1f1;
     position: fixed;
     height: 100%;
@@ -26,7 +26,13 @@
 }
 
 div.mainContent {
-    margin-left: 200px;
+    margin-left: 250px;
+}
+
+.toggle {
+    display: none;
+    text-align: center;
+    padding: 16px;
 }
 
 @media screen and (max-width: 700px) {
@@ -43,5 +49,9 @@ div.mainContent {
     .sidebar a {
         text-align: center;
         float: none;
+    }
+
+    .toggle {
+        display: block;
     }
 }
