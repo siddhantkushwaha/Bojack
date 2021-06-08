@@ -1,8 +1,8 @@
 import style from './Index.module.css'
 
-const WorkExperience = ({title, subtitle, link, about}) => {
+const Work = ({title, subtitle, link, about}) => {
     return <div className="col p-1">
-        <div className="card bg-dark h-100" style={{width: "100%"}}>
+        <div className={`card h-100 ${style.cardWork}`} style={{width: "100%"}}>
             <div className="card-body">
                 <h5 className="card-title">{title}</h5>
                 <h6 className="card-subtitle mb-2 text-muted">{subtitle}</h6>
@@ -17,7 +17,7 @@ const WorkExperience = ({title, subtitle, link, about}) => {
 
 const Project = ({title, subtitle, about, link}) => {
     return <div className="col p-1">
-        <div className="card bg-dark h-100" style={{width: "100%"}}>
+        <div className={`card h-100 ${style.cardProject}`} style={{width: "100%"}}>
             <div className="card-body">
                 <h5 className="card-title">{title}</h5>
                 <h6 className="card-subtitle mb-2 text-muted">{subtitle}</h6>
@@ -25,6 +25,22 @@ const Project = ({title, subtitle, about, link}) => {
                     <i className="bi bi-github"/> View Source
                 </a>
                 <p className="card-text pt-2">{about}</p>
+            </div>
+        </div>
+    </div>
+}
+
+const Education = ({title, subtitle, about, link, grade}) => {
+    return <div className="col p-1">
+        <div className={`card h-100 ${style.cardEducation}`} style={{width: "100%"}}>
+            <div className="card-body">
+                <h5 className="card-title">{title}</h5>
+                <h6 className="card-subtitle mb-2 text-muted">{subtitle}</h6>
+                <a href={link} className={`card-link ${style.link}`} target="_blank">
+                    <i className="bi bi-book-half"/> Know More
+                </a>
+                <p className="card-text pt-1">{about}</p>
+                <h3 className="text-muted">{grade}</h3>
             </div>
         </div>
     </div>
@@ -67,21 +83,21 @@ export default function Index() {
 
                 <div className="row row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-1 p-1">
 
-                    <WorkExperience
+                    <Work
                         title={"Commvault"}
                         subtitle={"Backup and recovery solutions and much more."}
                         about={"Working as a software developer with one of the core teams, I solve problems that come with trying to browse and restore terabytes of data and millions of files from countless sources."}
                         link={"https://www.commvault.com/"}
                     />
 
-                    <WorkExperience
+                    <Work
                         title={"Egregore Labs"}
                         subtitle={"Unique insights from unstructured data."}
                         about={"Wrote modules to collect and process data from web, wrote algorithms to help extract data from documents, forms."}
                         link={"https://www.egregorelabs.com/"}
                     />
 
-                    <WorkExperience
+                    <Work
                         title={"Cheruvu"}
                         subtitle={"Help farmers with data science."}
                         about={"Interned at Cheruvu as an Android app developer, working on app to facilitate data collection from farmers."}
@@ -102,7 +118,7 @@ export default function Index() {
                     <Project
                         title={"Carolyn"}
                         subtitle={"SMS superpowers."}
-                        about={"On device classification of sms messages into different categories plus notification management."}
+                        about={"On device intelligence for classification of sms messages into different categories plus notification management."}
                         link={"https://github.com/siddhantkushwaha/Carolyn-Android"}
                     />
 
@@ -130,6 +146,32 @@ export default function Index() {
 
                 </div>
             </div>
+            <hr/>
+
+            {/* ----------------- Education -------------- */}
+            <div>
+                <h5>Education</h5>
+                <div className="row row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-1 p-1">
+                    <Education
+                        title={"Indian Institute of Information Technology"}
+                        subtitle={"SriCity, Andhra Pradesh."}
+                        about={"Computer Science."}
+                        link={"http://www.iiits.ac.in/"}
+                        grade={8.22}
+                    />
+
+                    <Education
+                        title={"Aryaman Vikram Birla Institute of Learning"}
+                        subtitle={"Haldwani, Nainital."}
+                        about={"Schooling."}
+                        link={"https://www.avbil.net/"}
+                        grade={"92.8"}
+                    />
+
+                </div>
+            </div>
+
+
         </div>
     )
 }

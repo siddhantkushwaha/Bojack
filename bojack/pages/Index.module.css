@@ -1,3 +1,15 @@
 a.link {
     text-decoration: none;
 }
+
+.cardWork {
+    background-color: #232823;
+}
+
+.cardProject {
+    background-color: #282323;
+}
+
+.cardEducation {
+    background-color: #232328;
+}
