@@ -99,7 +99,7 @@ export default function Index() {
 
                     <Work
                         title={"Cheruvu"}
-                        subtitle={"Help farmers with data science."}
+                        subtitle={"Helping farmers with data science."}
                         about={"Interned at Cheruvu as an Android app developer, working on app to facilitate data collection from farmers."}
                         link={"https://in.linkedin.com/company/cheruvu/"}
                     />
