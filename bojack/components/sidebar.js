@@ -24,18 +24,21 @@ const Sidebar = ({children}) => {
     const router = useRouter()
     const currentPath = router.pathname
 
-    const [showMe, setShowMe] = useState(true)
+    const [linkVisibilityState, setLinkVisibilityState] = useState(style.linkVisibility)
     const toggleLinkVisibility = () => {
-        setShowMe(!showMe)
+        if (linkVisibilityState === "")
+            setLinkVisibilityState(style.linkVisibility)
+        else
+            setLinkVisibilityState("")
     }
 
     return (
         <div>
             <div className={style.sidebar}>
-                <div className={style.toggle} onClick={toggleLinkVisibility} onChange={console.log}>
+                <div className={style.toggle} onClick={toggleLinkVisibility}>
                     {linkToNameMap[currentPath]}
                 </div>
-                <div style={{display: showMe ? 'block' : 'none'}}>
+                <div className={linkVisibilityState}>
                     <ActiveLink href="/"/>
                     <ActiveLink href="/scavenger"/>
                 </div>
