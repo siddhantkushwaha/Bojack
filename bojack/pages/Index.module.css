@@ -13,3 +13,20 @@ a.link {
 .cardEducation {
     background-color: #232328;
 }
+
+.profilePicture {
+    width: 100%;
+    border-radius: 50%
+}
+
+.bioHeadline {
+    color: #bababa
+}
+
+.sectionTitle {
+    color: #878787
+}
+
+.bottomPad {
+    height: 20px;
+}

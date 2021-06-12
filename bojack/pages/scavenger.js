@@ -1,6 +1,24 @@
 import style from './Scavenger.module.css'
 import {useState} from "react";
 
+const beautifyName = (name) => {
+    return name.replaceAll("/", " / ").trim()
+}
+
+const ResultItem = ({name, description, link, content}) => {
+    return <div className="col-lg-12 mb-2">
+        <div className={`card h-100 ${style.resultItem}`}>
+            <div className="card-body">
+                <h5 className={`card-title ${style.resultItemTitle}`}>{beautifyName(name)}</h5>
+                <h6 className={`card-subtitle mb-2 text-muted ${style.resultItemDescription}`}>{description}</h6>
+                <p className={`card-text mt-3 p-2 ${style.resultItemContent}`}>{content}</p>
+                <a href={link} className={`card-link ${style.link} ${style.resultItemLink}`} target="_blank"><i
+                    className="bi bi-eye-fill"/> View Document</a>
+            </div>
+        </div>
+    </div>
+}
+
 export default function Scavenger() {
 
     const [preferencesVisibilityState, setPreferencesVisibilityState] = useState(style.preferencesVisibility)
@@ -50,19 +68,17 @@ export default function Scavenger() {
                     </form>
 
                     {/* This will be the content section */}
-                    <div className="mt-3">
+                    <div className="my-3">
 
-                        {/* only one of the two divs is supposed to ve visible at a time */}
+                        {/* In future only one of the two divs is supposed to ve visible at a time */}
 
                         {/* This will be the project info */}
-                        <div className={`p-3 ${style.info}`}>
+                        <div className={`p-3 mb-3 ${style.info}`}>
                             <div className="text-center pb-2">
                                 <img
                                     src="/img/scavenger.png"
-                                    style={{
-                                        width: "100px",
-                                        height: "100px"
-                                    }}/>
+                                    width="100px"
+                                    height="100px"/>
                             </div>
                             <p>Scavenger is built to organise all the work that I do on a daily basis on different
                                 platforms.</p>
@@ -78,7 +94,34 @@ export default function Scavenger() {
                         </div>
 
                         {/* This will be the SEARCH content section */}
-                        <div>
+                        <div className="row">
+
+                            <ResultItem
+                                name={"/siddhantkushwaha/Carolyn-Android/build.gradle"}
+                                description={"This is some description"}
+                                link={"#"}
+                                content={
+                                    <>This is some <b>content to demonstrate UI for Scavenger.</b></>
+                                }
+                            />
+
+                            <ResultItem
+                                name={"/siddhantkushwaha/Carolyn-Android/build.gradle"}
+                                description={"This is some description"}
+                                link={"#"}
+                                content={
+                                    <>This is some <b>content to demonstrate UI for Scavenger.</b></>
+                                }
+                            />
+
+                            <ResultItem
+                                name={"/siddhantkushwaha/Carolyn-Android/build.gradle"}
+                                description={"This is some description"}
+                                link={"#"}
+                                content={
+                                    <>This is some <b>content to demonstrate UI for Scavenger.</b></>
+                                }
+                            />
 
                         </div>
 

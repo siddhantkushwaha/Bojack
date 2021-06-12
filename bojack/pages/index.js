@@ -2,7 +2,7 @@ import style from './Index.module.css'
 
 const Work = ({title, subtitle, link, about}) => {
     return <div className="col p-1">
-        <div className={`card h-100 ${style.cardWork}`} style={{width: "100%"}}>
+        <div className={`card h-100 ${style.cardWork}`}>
             <div className="card-body">
                 <h5 className="card-title">{title}</h5>
                 <h6 className="card-subtitle mb-2 text-muted">{subtitle}</h6>
@@ -17,7 +17,7 @@ const Work = ({title, subtitle, link, about}) => {
 
 const Project = ({title, subtitle, about, link}) => {
     return <div className="col p-1">
-        <div className={`card h-100 ${style.cardProject}`} style={{width: "100%"}}>
+        <div className={`card h-100 ${style.cardProject}`}>
             <div className="card-body">
                 <h5 className="card-title">{title}</h5>
                 <h6 className="card-subtitle mb-2 text-muted">{subtitle}</h6>
@@ -32,7 +32,7 @@ const Project = ({title, subtitle, about, link}) => {
 
 const Education = ({title, subtitle, about, link, grade}) => {
     return <div className="col p-1">
-        <div className={`card h-100 ${style.cardEducation}`} style={{width: "100%"}}>
+        <div className={`card h-100 ${style.cardEducation}`}>
             <div className="card-body">
                 <h5 className="card-title">{title}</h5>
                 <h6 className="card-subtitle mb-2 text-muted">{subtitle}</h6>
@@ -55,14 +55,11 @@ export default function Index() {
                 <div className="col-md-3 pt-4 pt-md-0">
                     <img
                         src="/img/me.jpg"
-                        style={{
-                            width: "100%",
-                            borderRadius: "50%"
-                        }}/>
+                        className={style.profilePicture}/>
                 </div>
                 <div className="col-md-9 pt-4 pt-md-0">
                     <h1>Siddhant Kushwaha</h1>
-                    <h6 style={{color: "#bababa"}}>SDE at Commvault | IIIT SriCity</h6>
+                    <h6 className={style.bioHeadline}>SDE at Commvault | IIIT SriCity</h6>
                     <h5><a className={style.link}><i className="bi bi-envelope-fill"/> k16.siddhant@gmail.com</a></h5>
                     <h5><a className={style.link} href={"https://github.com/siddhantkushwaha"} target={"_blank"}><i
                         className="bi bi-github"/> siddhantkushwaha</a></h5>
@@ -78,7 +75,7 @@ export default function Index() {
             {/* ----------------- Work Experience -------------- */}
             <div>
                 <h5>Work Experience</h5>
-                <p style={{color: "#878787"}}>I interned at a couple places before graduating in 2020 and joining
+                <p className={style.sectionTitle}>I interned at a couple places before graduating in 2020 and joining
                     Commvault.</p>
 
                 <div className="row row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-1 p-1">
@@ -111,7 +108,8 @@ export default function Index() {
             {/* ----------------- Recent projects -------------- */}
             <div>
                 <h5>Recent Projects</h5>
-                <p style={{color: "#878787"}}>Head over to my GitHub to look at my other upcoming and ongoing projects
+                <p className={style.sectionTitle}>Head over to my GitHub to look at my other upcoming and ongoing
+                    projects
                     if interested.</p>
 
                 <div className="row row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-1 p-1">
@@ -173,7 +171,7 @@ export default function Index() {
 
             {/* TODO add more here */}
 
-            <div style={{height: "20px"}}/>
+            <div className={style.bottomPad}/>
         </div>
     )
 }

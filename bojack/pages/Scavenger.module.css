@@ -35,3 +35,27 @@
 .link {
     text-decoration: none;
 }
+
+.resultItem {
+    border-radius: 0;
+    border: 0;
+    background-color: #111111
+}
+
+.resultItemTitle {
+    font-size: 14px
+}
+
+.resultItemDescription {
+    font-size: 14px
+}
+
+.resultItemLink {
+    font-size: 14px
+}
+
+.resultItemContent {
+    background-color: #181818;
+    font-size: 13px
+}
+
