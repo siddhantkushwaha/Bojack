@@ -2,7 +2,7 @@ import style from './Scavenger.module.css'
 import {useState} from "react";
 
 const beautifyName = (name) => {
-    return name.replaceAll("/", " / ").trim()
+    return name.replace(/\//g, " / ").trim()
 }
 
 const ResultItem = ({name, description, link, content}) => {
