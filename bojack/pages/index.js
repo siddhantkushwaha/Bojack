@@ -55,8 +55,8 @@ export default function Index() {
                 <div className="col-md-3 pt-4 pt-md-0">
                     <img
                         src="/img/me.jpg"
-                        width="100%"
                         style={{
+                            width: "100%",
                             borderRadius: "50%"
                         }}/>
                 </div>
@@ -85,7 +85,7 @@ export default function Index() {
 
                     <Work
                         title={"Commvault"}
-                        subtitle={"Backup and recovery solutions and much more."}
+                        subtitle={"Enterprise data backup and recovery."}
                         about={"Working as a software developer with one of the core teams, I solve problems that come with trying to browse and restore terabytes of data and millions of files from countless sources."}
                         link={"https://www.commvault.com/"}
                     />
