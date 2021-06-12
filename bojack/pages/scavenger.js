@@ -30,10 +30,9 @@ export default function Scavenger() {
                                         height: "100px"
                                     }}/>
                             </div>
-                            <p>Scavenger was built to organize the work that I do on a daily basis on different
+                            <p>Scavenger is built to organise all the work that I do on a daily basis on different
                                 platforms.</p>
-                            <p>The goal here is to make everything searchable and get some insight into how a search
-                                engine should work and get answers to some important questions.</p>
+                            <p>The goal here is to make everything searchable and get some insights into how search engines work and answers to some important questions.</p>
                             <ul className={`px-5 py-3 ${style.infoList}`}>
                                 <li>How to collect and organize data from different sources?</li>
                                 <li>How to make querying easier?</li>
