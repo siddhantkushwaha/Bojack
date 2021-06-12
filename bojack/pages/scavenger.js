@@ -37,12 +37,12 @@ export default function Scavenger() {
                                 </label>
                                 <label className={`list-group-item ${style.preferenceItem} border-bottom-0`}>
                                     <input className={`form-check-input me-2 ${style.preferenceInput}`} type="radio"
-                                           name="termOperator" checked/>
+                                           name="termOperator" value="or" checked/>
                                     Qualify if at least one query term is present
                                 </label>
                                 <label className={`list-group-item ${style.preferenceItem}`}>
                                     <input className={`form-check-input me-2 ${style.preferenceInput}`} type="radio"
-                                           name="termOperator"/>
+                                           name="termOperator" value="and"/>
                                     Qualify only if all query terms are present
                                 </label>
                             </div>
@@ -66,9 +66,10 @@ export default function Scavenger() {
                             </div>
                             <p>Scavenger is built to organise all the work that I do on a daily basis on different
                                 platforms.</p>
-                            <p>The goal here is to make everything searchable and get some insights into how search
-                                engines work and answers to some important questions.</p>
-                            <ul className={`px-5 py-3 ${style.infoList}`}>
+                            <p>The goal here is to make almost everything I do searchable and get some insights into how
+                                search
+                                engines work and answer following important questions.</p>
+                            <ul className={`px-5 py-3 ${style.infoBox}`}>
                                 <li>How to collect and organize data from different sources?</li>
                                 <li>How to make querying easier?</li>
                                 <li>How to rank documents based on relevance?</li>

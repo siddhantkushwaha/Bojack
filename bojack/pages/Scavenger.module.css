@@ -8,8 +8,8 @@
     color: #adadad
 }
 
-.infoList {
-    background-color: #201b23
+.infoBox {
+    background-color: #201b23;
 }
 
 .preferences {
@@ -30,4 +30,8 @@
 
 .preferencesVisibility {
     display: none;
+}
+
+.link {
+    text-decoration: none;
 }
