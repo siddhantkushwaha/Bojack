@@ -1,5 +1,6 @@
 .searchInput {
     height: 50px;
+    border-radius: 0;
 }
 
 .info {
@@ -9,4 +10,24 @@
 
 .infoList {
     background-color: #201b23
+}
+
+.preferences {
+    border-radius: 0;
+}
+
+.preferenceItem {
+    background-color: #242424;
+    color: #bfbfbf;
+    font-size: 14px;
+    border-color: #1f1f1f;
+}
+
+.preferenceInput {
+    background-color: #1f1f1f;
+    border: 0;
+}
+
+.preferencesVisibility {
+    display: none;
 }
