@@ -16,7 +16,7 @@ const ResultItem = ({name, description, link, content}) => {
                 <h5 className={`card-title ${style.resultItemTitle}`}>{beautifyName(name)}</h5>
                 <h6 className={`card-subtitle mb-2 text-muted ${style.resultItemDescription}`}>{description}</h6>
                 <div className={`card-text mt-3 p-2 ${style.resultItemContent}`}
-                     style={content.length < 1 ? {display: 'none'} : {}}>
+                     style={content === null || content === undefined || content.length < 1 ? {display: 'none'} : {}}>
                     <code className={style.resultItemContentCode}>
                         {content}
                     </code>
@@ -32,19 +32,51 @@ const ResultItem = ({name, description, link, content}) => {
     </div>
 }
 
+const FieldInput = ({name, value, checkedFields, onChangeFunc}) => {
+    return <label className={`list-group-item flex-fill ${style.preferenceItem}`}
+                  style={{borderTopRightRadius: "0", borderBottomLeftRadius: "0"}}>
+        <input className={`form-check-input me-2 ${style.preferenceInput}`}
+               type="checkbox"
+               name="field"
+               value={value}
+               checked={checkedFields.indexOf(value) > -1}
+               onChange={(e) => {
+                   onChangeFunc(e)
+               }}
+        />
+        {name}
+    </label>
+}
+
 export default function Scavenger() {
 
     const [searchReq, setSearchReq] = useState({
         query: "",
         useRegex: true,
-        limit: 10
+        limit: 10,
+        field: ["path", "name", "description", "data"]
     })
     const [result, setResults] = useState(null)
 
     const doSearch = (e) => {
         let targetValue = e.target.value
-        if (e.target.type === "checkbox")
+
+        if (e.target.name === "field") {
+            const i = searchReq.field.indexOf(targetValue)
+            if (e.target.checked && i < 0) {
+                searchReq.field.push(targetValue)
+            } else if (!e.target.checked && i >= 0) {
+                searchReq.field.splice(i, 1)
+            }
+            targetValue = searchReq.field
+
+            console.log(targetValue)
+        }
+
+        // if field if a checkbox, replace value with check boolean
+        else if (e.target.type === "checkbox") {
             targetValue = e.target.checked
+        }
 
         // do not remote this, we need to be sure req object was updated
         searchReq[e.target.name] = targetValue
@@ -58,8 +90,18 @@ export default function Scavenger() {
     }
 
     const makeRequestUpdateResult = (req) => {
+
+        const params = new URLSearchParams()
+        for (const k of Object.keys(req)) {
+            if (k === "field")
+                for (const i of req[k])
+                    params.append(k, i)
+            else
+                params.append(k, req[k])
+        }
+
         if (req.query.length > 0) {
-            axios.get("/api/search", {params: req})
+            axios.get("/api/search", {params: params})
                 .then((res) => {
                     console.log('Results received.', res.data)
                     setResults(res.data)
@@ -90,11 +132,13 @@ export default function Scavenger() {
             return
 
         const resultItems = documents.map((doc) => {
-                let highlights = doc["highlights"][0]
+                let highlights = doc["highlights"]
                 if (highlights === null || highlights === undefined)
-                    highlights = ""
+                    highlights = [""]
+                highlights = highlights[0]
 
                 return <ResultItem
+                    key={doc.key}
                     name={doc.name.length > 0 ? doc.name : doc.key}
                     description={doc.description}
                     link={"#"}
@@ -112,7 +156,7 @@ export default function Scavenger() {
 
                     {/* Inputs related to search go here */}
                     <form method="GET">
-                        <div>
+                        <div className="input-group">
                             <input type="text"
                                    className={`form-control border-0 bg-dark text-white shadow-none ${style.searchInput}`}
                                    placeholder="Type to search."
@@ -122,14 +166,16 @@ export default function Scavenger() {
                                        doSearch(e)
                                    }}
                             />
-                        </div>
-                        <div className={`list-group list mt-2 ${style.preferences}`}>
                             <button type="button"
-                                    className={`list-group-item ${style.preferenceItem} border-bottom-0`}
+                                    className={`list-group-item ${style.preferenceButton} border-0`}
                                     onClick={togglePreferencesVisibility}
                             ><i className={`bi bi-gear-fill`}/>
                             </button>
-                            <div className={preferencesVisibilityState}>
+                        </div>
+
+                        <div className={`mt-2 ${preferencesVisibilityState}`}>
+
+                            <div className={`list-group ${style.preferences}`}>
                                 <label className={`list-group-item ${style.preferenceItem}`}>
                                     <input className={`form-check-input me-2 ${style.preferenceInput}`}
                                            type="checkbox"
@@ -142,7 +188,45 @@ export default function Scavenger() {
                                     Use regular expressions
                                 </label>
                             </div>
+
+                            <div className={`list-group-item border-bottom-0 ${style.preferenceItem}`}>
+                                Do lookup on field marked below.
+                            </div>
+                            <div className={`list-group list-group-horizontal-md ${style.preferences}`}>
+                                <FieldInput
+                                    name={"Path"}
+                                    value={"path"}
+                                    checkedFields={searchReq.field}
+                                    onChangeFunc={doSearch}/>
+                                <FieldInput
+                                    name={"Name"}
+                                    value={"name"}
+                                    checkedFields={searchReq.field}
+                                    onChangeFunc={doSearch}/>
+                                <FieldInput
+                                    name={"Description"}
+                                    value={"description"}
+                                    checkedFields={searchReq.field}
+                                    onChangeFunc={doSearch}/>
+                                <FieldInput
+                                    name={"Data"}
+                                    value={"data"}
+                                    checkedFields={searchReq.field}
+                                    onChangeFunc={doSearch}/>
+                                <FieldInput
+                                    name={"Extension"}
+                                    value={"fileExtension"}
+                                    checkedFields={searchReq.field}
+                                    onChangeFunc={doSearch}/>
+                                <FieldInput
+                                    name={"Source"}
+                                    value={"dataSource"}
+                                    checkedFields={searchReq.field}
+                                    onChangeFunc={doSearch}/>
+                            </div>
+
                         </div>
+
                     </form>
 
                     {/* This will be the content section */}
