@@ -190,7 +190,7 @@ export default function Scavenger() {
                             </div>
 
                             <div className={`list-group-item border-bottom-0 ${style.preferenceItem}`}>
-                                Do lookup on field marked below.
+                                Do lookup on fields marked below.
                             </div>
                             <div className={`list-group list-group-horizontal-md ${style.preferences}`}>
                                 <FieldInput
