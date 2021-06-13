@@ -56,6 +56,9 @@
 
 .resultItemContent {
     background-color: #181818;
-    font-size: 13px
+    font-size: 13px;
+    white-space: pre-wrap;
+    color: #c441ff;
 }
+
 

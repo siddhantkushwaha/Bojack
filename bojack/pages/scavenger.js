@@ -1,5 +1,10 @@
 import style from './Scavenger.module.css'
-import {useState} from "react";
+import {useRef, useState} from "react"
+
+import {throttle} from "lodash"
+import axios from "axios";
+
+import parse from "html-react-parser"
 
 const beautifyName = (name) => {
     return name.replace(/\//g, " / ").trim()
@@ -11,9 +16,16 @@ const ResultItem = ({name, description, link, content}) => {
             <div className="card-body">
                 <h5 className={`card-title ${style.resultItemTitle}`}>{beautifyName(name)}</h5>
                 <h6 className={`card-subtitle mb-2 text-muted ${style.resultItemDescription}`}>{description}</h6>
-                <p className={`card-text mt-3 p-2 ${style.resultItemContent}`}>{content}</p>
-                <a href={link} className={`card-link ${style.link} ${style.resultItemLink}`} target="_blank"><i
-                    className="bi bi-eye-fill"/> View Document</a>
+                <div className={`card-text mt-3 p-2 ${style.resultItemContent}`}
+                     style={content.length < 1 ? {display: 'none'} : {}}>
+                    {content}
+                </div>
+                <div className="mt-3">
+                    <a href={link} className={`card-link ${style.link} ${style.resultItemLink}`} target="_blank"><i
+                        className="bi bi-file-earmark-arrow-down-fill"/></a>
+                    <a href={link} className={`card-link ${style.link} ${style.resultItemLink}`} target="_blank"><i
+                        className="bi bi-eye-fill"/></a>
+                </div>
             </div>
         </div>
     </div>
@@ -21,12 +33,78 @@ const ResultItem = ({name, description, link, content}) => {
 
 export default function Scavenger() {
 
+    const [searchReq, setSearchReq] = useState({
+        query: "",
+        useRegex: true,
+        limit: 10
+    })
+    const [result, setResults] = useState(null)
+
+    const doSearch = (e) => {
+        let targetValue = e.target.value
+        if (e.target.type === "checkbox")
+            targetValue = e.target.checked
+
+        // do not remote this, we need to be sure req object was updated
+        searchReq[e.target.name] = targetValue
+        throttledReq(searchReq)
+
+        // also update doc state
+        setSearchReq({
+            ...searchReq,
+            [e.target.name]: targetValue
+        })
+    }
+
+    const makeRequestUpdateResult = (req) => {
+        if (req.query.length > 0) {
+            axios.get("/api/search", {params: req})
+                .then((res) => {
+                    console.log('Results received.', res.data)
+                    setResults(res.data)
+                })
+                .catch((err) => {
+                    console.error(err)
+                    setResults(null)
+                })
+        } else {
+            setResults(null)
+        }
+    }
+
+    const throttledReq = useRef(throttle((req) => {
+        makeRequestUpdateResult(req)
+    }, 1000)).current
+
     const [preferencesVisibilityState, setPreferencesVisibilityState] = useState(style.preferencesVisibility)
     const togglePreferencesVisibility = () => {
         if (preferencesVisibilityState === "")
             setPreferencesVisibilityState(style.preferencesVisibility)
         else
             setPreferencesVisibilityState("")
+    }
+
+    const getResultItems = (documents) => {
+        if (documents === undefined)
+            return
+
+        const resultItems = documents.map((doc) => {
+                let highlights = doc["highlights"][0]
+                if (highlights === null || highlights === undefined)
+                    highlights = ""
+                // highlights = highlights.replace(/<B>/g, "<B style=\"color:#44ff00\">")
+
+                return <ResultItem
+                    name={doc.name.length > 0 ? doc.name : doc.key}
+                    description={doc.description}
+                    link={"#"}
+                    content={
+                        parse(highlights)
+                    }
+                />
+            }
+        )
+        return <>{resultItems}</>
     }
 
     return (
@@ -40,28 +118,30 @@ export default function Scavenger() {
                             <input type="text"
                                    className={`form-control border-0 bg-dark text-white shadow-none ${style.searchInput}`}
                                    placeholder="Type to search."
-                                   name="query"/>
+                                   name="query"
+                                   value={searchReq.query}
+                                   onChange={(e) => {
+                                       doSearch(e)
+                                   }}
+                            />
                         </div>
                         <div className={`list-group list mt-2 ${style.preferences}`}>
-                            <button type="button" className={`list-group-item ${style.preferenceItem} border-bottom-0`}
-                                    onClick={togglePreferencesVisibility}>
-                                <i className={`bi bi-gear-fill`}/>
+                            <button type="button"
+                                    className={`list-group-item ${style.preferenceItem} border-bottom-0`}
+                                    onClick={togglePreferencesVisibility}
+                            ><i className={`bi bi-gear-fill`}/>
                             </button>
                             <div className={preferencesVisibilityState}>
                                 <label className={`list-group-item ${style.preferenceItem}`}>
-                                    <input className={`form-check-input me-2 ${style.preferenceInput}`} type="checkbox"
-                                           name="useRegex"/>
+                                    <input className={`form-check-input me-2 ${style.preferenceInput}`}
+                                           type="checkbox"
+                                           name="useRegex"
+                                           checked={searchReq.useRegex}
+                                           onChange={(e) => {
+                                               doSearch(e)
+                                           }}
+                                    />
                                     Use regular expressions
-                                </label>
-                                <label className={`list-group-item ${style.preferenceItem} border-bottom-0`}>
-                                    <input className={`form-check-input me-2 ${style.preferenceInput}`} type="radio"
-                                           name="termOperator" value="or" checked/>
-                                    Qualify if at least one query term is present
-                                </label>
-                                <label className={`list-group-item ${style.preferenceItem}`}>
-                                    <input className={`form-check-input me-2 ${style.preferenceInput}`} type="radio"
-                                           name="termOperator" value="and"/>
-                                    Qualify only if all query terms are present
                                 </label>
                             </div>
                         </div>
@@ -73,12 +153,16 @@ export default function Scavenger() {
                         {/* In future only one of the two divs is supposed to ve visible at a time */}
 
                         {/* This will be the project info */}
-                        <div className={`p-3 mb-3 ${style.info}`}>
+                        <div className={`p-3 mb-3 ${style.info}`}
+                             style={result === null || result["totalHits"] === 0 ? {} : {display: 'none'}}>
+
                             <div className="text-center pb-2">
                                 <img
+                                    alt="Scavenger Logo"
                                     src="/img/scavenger.png"
                                     width="100px"
-                                    height="100px"/>
+                                    height="100px"
+                                />
                             </div>
                             <p>Scavenger is built to organise all the work that I do on a daily basis on different
                                 platforms.</p>
@@ -91,37 +175,14 @@ export default function Scavenger() {
                                 <li>How to rank documents based on relevance?</li>
                                 <li>How to derive useful insights from different kinds of documents?</li>
                             </ul>
+
                         </div>
 
                         {/* This will be the SEARCH content section */}
-                        <div className="row">
+                        <div className="row"
+                             style={result === null || result["totalHits"] === 0 ? {display: 'none'} : {}}>
 
-                            <ResultItem
-                                name={"/siddhantkushwaha/Carolyn-Android/build.gradle"}
-                                description={"This is some description"}
-                                link={"#"}
-                                content={
-                                    <>This is some <b>content to demonstrate UI for Scavenger.</b></>
-                                }
-                            />
-
-                            <ResultItem
-                                name={"/siddhantkushwaha/Carolyn-Android/build.gradle"}
-                                description={"This is some description"}
-                                link={"#"}
-                                content={
-                                    <>This is some <b>content to demonstrate UI for Scavenger.</b></>
-                                }
-                            />
-
-                            <ResultItem
-                                name={"/siddhantkushwaha/Carolyn-Android/build.gradle"}
-                                description={"This is some description"}
-                                link={"#"}
-                                content={
-                                    <>This is some <b>content to demonstrate UI for Scavenger.</b></>
-                                }
-                            />
+                            {result !== null ? getResultItems(result["documents"]) : ""}
 
                         </div>
 
