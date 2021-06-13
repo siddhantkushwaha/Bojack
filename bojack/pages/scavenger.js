@@ -4,7 +4,6 @@ import {useRef, useState} from "react"
 import {throttle} from "lodash"
 import axios from "axios";
 
-import parse from "html-react-parser"
 
 const beautifyName = (name) => {
     return name.replace(/\//g, " / ").trim()
@@ -18,7 +17,9 @@ const ResultItem = ({name, description, link, content}) => {
                 <h6 className={`card-subtitle mb-2 text-muted ${style.resultItemDescription}`}>{description}</h6>
                 <div className={`card-text mt-3 p-2 ${style.resultItemContent}`}
                      style={content.length < 1 ? {display: 'none'} : {}}>
-                    {content}
+                    <code className={style.resultItemContentCode}>
+                        {content}
+                    </code>
                 </div>
                 <div className="mt-3">
                     <a href={link} className={`card-link ${style.link} ${style.resultItemLink}`} target="_blank"><i
@@ -92,15 +93,12 @@ export default function Scavenger() {
                 let highlights = doc["highlights"][0]
                 if (highlights === null || highlights === undefined)
                     highlights = ""
-                // highlights = highlights.replace(/<B>/g, "<B style=\"color:#44ff00\">")
 
                 return <ResultItem
                     name={doc.name.length > 0 ? doc.name : doc.key}
                     description={doc.description}
                     link={"#"}
-                    content={
-                        parse(highlights)
-                    }
+                    content={highlights}
                 />
             }
         )

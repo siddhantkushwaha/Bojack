@@ -58,7 +58,11 @@
     background-color: #181818;
     font-size: 13px;
     white-space: pre-wrap;
-    color: #c441ff;
+
+}
+
+.resultItemContentCode {
+    color: #39ff14;
 }
 
 
