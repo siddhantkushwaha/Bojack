@@ -9,7 +9,7 @@ const beautifyName = (name) => {
     return name.replace(/\//g, " / ").trim()
 }
 
-const ResultItem = ({docId, name, description, link, content}) => {
+const ResultItem = ({docId, name, description, content}) => {
 
     const [isContentShown, setIsContentShown] = useState(false)
     const toggleFullContent = () => {
@@ -164,7 +164,6 @@ export default function Scavenger() {
                     key={doc.key}
                     name={doc.name.length > 0 ? doc.name : doc.key}
                     description={doc.description}
-                    link={"#"}
                     content={highlights}
                 />
             }
