@@ -1,19 +1,20 @@
 import axios from "axios";
 
+import {index_address} from "../../config.json";
+
 export default async function handler(req, res) {
     try {
-
         const params = new URLSearchParams()
-        for (const k of Object.keys(req.query)) {
-            if (typeof k === 'object')
-                for (const i of req.query[k])
-                    params.append(k, i)
+        for (const key of Object.keys(req.query)) {
+            if (key === 'field')
+                for (const i of req.query[key])
+                    params.append(key, i)
             else
-                params.append(k, req.query[k])
+                params.append(key, req.query[key])
         }
 
         const data = await axios.get(
-            'http://sid.centralindia.cloudapp.azure.com:8080/search',
+            `${index_address}/search`,
             {params: params}
         )
         res.status(200).json(data.data)

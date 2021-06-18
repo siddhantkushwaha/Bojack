@@ -9,7 +9,31 @@ const beautifyName = (name) => {
     return name.replace(/\//g, " / ").trim()
 }
 
-const ResultItem = ({name, description, link, content}) => {
+const ResultItem = ({docId, name, description, link, content}) => {
+
+    const [isContentShown, setIsContentShown] = useState(false)
+    const toggleFullContent = () => {
+        setIsContentShown(!isContentShown)
+        if (document === null) {
+            throttledReq()
+        }
+    }
+
+    const [document, setDocument] = useState(null)
+    const getDocument = () => {
+        axios.get("/api/get", {params: {docId: docId}})
+            .then((res) => {
+                console.log('Results received.', res.data)
+                setDocument(res.data)
+            })
+            .catch((err) => {
+                console.error(err)
+            })
+    }
+    const throttledReq = useRef(throttle(() => {
+        getDocument()
+    }, 1000)).current
+
     return <div className="col-lg-12 mb-2">
         <div className={`card h-100 ${style.resultItem}`}>
             <div className="card-body">
@@ -17,15 +41,14 @@ const ResultItem = ({name, description, link, content}) => {
                 <h6 className={`card-subtitle mb-2 text-muted ${style.resultItemDescription}`}>{description}</h6>
                 <div className={`card-text mt-3 p-2 ${style.resultItemContent}`}
                      style={content === null || content === undefined || content.length < 1 ? {display: 'none'} : {}}>
-                    <code className={style.resultItemContentCode}>
-                        {content}
+                    <code className={`${style.resultItemContentCode} js`}>
+                        {isContentShown ? (document === null ? content : document.data) : content}
                     </code>
                 </div>
                 <div className="mt-3">
-                    <a href={link} className={`card-link ${style.link} ${style.resultItemLink}`} target="_blank"><i
-                        className="bi bi-file-earmark-arrow-down-fill"/></a>
-                    <a href={link} className={`card-link ${style.link} ${style.resultItemLink}`} target="_blank"><i
-                        className="bi bi-eye-fill"/></a>
+                    <a className={`card-link ${style.link} ${style.resultItemLink}`} target="_blank"><i
+                        className={`bi ${isContentShown ? 'bi-eye-slash-fill' : 'bi-eye-fill'}`}
+                        onClick={toggleFullContent}/></a>
                 </div>
             </div>
         </div>
@@ -92,12 +115,12 @@ export default function Scavenger() {
     const makeRequestUpdateResult = (req) => {
 
         const params = new URLSearchParams()
-        for (const k of Object.keys(req)) {
-            if (k === "field")
-                for (const i of req[k])
-                    params.append(k, i)
+        for (const key of Object.keys(req)) {
+            if (key === "field")
+                for (const i of req[key])
+                    params.append(key, i)
             else
-                params.append(k, req[k])
+                params.append(key, req[key])
         }
 
         if (req.query.length > 0) {
@@ -114,7 +137,6 @@ export default function Scavenger() {
             setResults(null)
         }
     }
-
     const throttledReq = useRef(throttle((req) => {
         makeRequestUpdateResult(req)
     }, 1000)).current
@@ -138,6 +160,7 @@ export default function Scavenger() {
                 highlights = highlights[0]
 
                 return <ResultItem
+                    docId={doc.id}
                     key={doc.key}
                     name={doc.name.length > 0 ? doc.name : doc.key}
                     description={doc.description}
@@ -176,7 +199,7 @@ export default function Scavenger() {
                         <div className={`mt-2 ${preferencesVisibilityState}`}>
 
                             <div className={`list-group ${style.preferences}`}>
-                                <label className={`list-group-item ${style.preferenceItem}`}>
+                                <label className={`list-group-item ${style.preferenceItem} border-bottom-0`}>
                                     <input className={`form-check-input me-2 ${style.preferenceInput}`}
                                            type="checkbox"
                                            name="useRegex"
@@ -190,7 +213,7 @@ export default function Scavenger() {
                             </div>
 
                             <div className={`list-group-item border-bottom-0 ${style.preferenceItem}`}>
-                                Do lookup on fields marked below.
+                                Apply query on following fields
                             </div>
                             <div className={`list-group list-group-horizontal-md ${style.preferences}`}>
                                 <FieldInput
