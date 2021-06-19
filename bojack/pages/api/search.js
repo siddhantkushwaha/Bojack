@@ -4,9 +4,10 @@ import {index_address} from "../../config.json";
 
 export default async function handler(req, res) {
     try {
+
         const params = new URLSearchParams()
         for (const key of Object.keys(req.query)) {
-            if (key === 'field')
+            if (typeof req.query[key] === 'object')
                 for (const i of req.query[key])
                     params.append(key, i)
             else

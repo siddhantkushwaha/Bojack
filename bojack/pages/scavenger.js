@@ -23,7 +23,7 @@ const ResultItem = ({docId, name, description, content}) => {
     const getDocument = () => {
         axios.get("/api/get", {params: {docId: docId}})
             .then((res) => {
-                console.log('Results received.', res.data)
+                console.log(res.data)
                 setDocument(res.data)
             })
             .catch((err) => {
@@ -34,13 +34,20 @@ const ResultItem = ({docId, name, description, content}) => {
         getDocument()
     }, 1000)).current
 
+    const shouldShowContent = () => {
+        if (isContentShown)
+            return document !== null
+        else
+            return content !== null && content !== undefined && content.length > 0
+    }
+
     return <div className="col-lg-12 mb-2">
         <div className={`card h-100 ${style.resultItem}`}>
             <div className="card-body">
                 <h5 className={`card-title ${style.resultItemTitle}`}>{beautifyName(name)}</h5>
                 <h6 className={`card-subtitle mb-2 text-muted ${style.resultItemDescription}`}>{description}</h6>
                 <div className={`card-text mt-3 p-2 ${style.resultItemContent}`}
-                     style={content === null || content === undefined || content.length < 1 ? {display: 'none'} : {}}>
+                     style={shouldShowContent() ? {} : {display: 'none'}}>
                     <code className={`${style.resultItemContentCode} js`}>
                         {isContentShown ? (document === null ? content : document.data) : content}
                     </code>
@@ -92,8 +99,6 @@ export default function Scavenger() {
                 searchReq.field.splice(i, 1)
             }
             targetValue = searchReq.field
-
-            console.log(targetValue)
         }
 
         // if field if a checkbox, replace value with check boolean
@@ -116,9 +121,10 @@ export default function Scavenger() {
 
         const params = new URLSearchParams()
         for (const key of Object.keys(req)) {
-            if (key === "field")
-                for (const i of req[key])
+            if (typeof req[key] === 'object')
+                for (const i of req[key]) {
                     params.append(key, i)
+                }
             else
                 params.append(key, req[key])
         }
@@ -126,7 +132,7 @@ export default function Scavenger() {
         if (req.query.length > 0) {
             axios.get("/api/search", {params: params})
                 .then((res) => {
-                    console.log('Results received.', res.data)
+                    console.log(res.data)
                     setResults(res.data)
                 })
                 .catch((err) => {
