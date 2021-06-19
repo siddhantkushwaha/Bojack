@@ -1,19 +1,16 @@
 import style from './Scavenger.module.css'
 import {useRef, useState} from "react"
 
+import axios from "axios"
 import {throttle} from "lodash"
-import axios from "axios";
+import dateFormat from "dateformat"
 
 
-const beautifyName = (name) => {
-    return name.replace(/\//g, " / ").trim()
-}
+const ResultItem = ({docId, name, description, highlightContent, lastModifiedEpoch}) => {
 
-const ResultItem = ({docId, name, description, content}) => {
-
-    const [isContentShown, setIsContentShown] = useState(false)
+    const [isFullContentShown, setIsFullContentShown] = useState(false)
     const toggleFullContent = () => {
-        setIsContentShown(!isContentShown)
+        setIsFullContentShown(!isFullContentShown)
         if (document === null) {
             throttledReq()
         }
@@ -34,11 +31,16 @@ const ResultItem = ({docId, name, description, content}) => {
         getDocument()
     }, 1000)).current
 
-    const shouldShowContent = () => {
-        if (isContentShown)
-            return document !== null
+    const beautifyName = (name) => {
+        return name.replace(/\//g, " / ").trim()
+    }
+
+    const shouldShowContentDiv = () => {
+        const isHighlightContentValid = highlightContent !== null && highlightContent !== undefined && highlightContent.length > 0
+        if (isFullContentShown)
+            return document !== null || isHighlightContentValid
         else
-            return content !== null && content !== undefined && content.length > 0
+            return isHighlightContentValid
     }
 
     return <div className="col-lg-12 mb-2">
@@ -47,15 +49,21 @@ const ResultItem = ({docId, name, description, content}) => {
                 <h5 className={`card-title ${style.resultItemTitle}`}>{beautifyName(name)}</h5>
                 <h6 className={`card-subtitle mb-2 text-muted ${style.resultItemDescription}`}>{description}</h6>
                 <div className={`card-text mt-3 p-2 ${style.resultItemContent}`}
-                     style={shouldShowContent() ? {} : {display: 'none'}}>
+                     style={shouldShowContentDiv() ? {} : {display: 'none'}}>
                     <code className={`${style.resultItemContentCode} js`}>
-                        {isContentShown ? (document === null ? content : document.data) : content}
+                        {isFullContentShown ? (document === null ? highlightContent : document.data) : highlightContent}
                     </code>
                 </div>
-                <div className="mt-3">
-                    <a className={`card-link ${style.link} ${style.resultItemLink}`} target="_blank"><i
-                        className={`bi ${isContentShown ? 'bi-eye-slash-fill' : 'bi-eye-fill'}`}
-                        onClick={toggleFullContent}/></a>
+                <div className="mt-3 d-flex align-items-center">
+                    <a className={`card-link ${style.link} ${style.resultItemLink}`} onClick={toggleFullContent}>
+                        <i className={`bi ${isFullContentShown ? 'bi-eye-slash-fill' : 'bi-eye-fill'}`}/>
+                    </a>
+                    <span className={`ms-auto d-flex align-items-center ${style.lastModifiedTime}`}>
+                        <i className="bi bi-clock-history"/>
+                        <span className="ps-1">
+                            {dateFormat(new Date(lastModifiedEpoch * 1000), "mmmm d, yyyy h:MM TT")}
+                        </span>
+                    </span>
                 </div>
             </div>
         </div>
@@ -170,7 +178,8 @@ export default function Scavenger() {
                     key={doc.key}
                     name={doc.name.length > 0 ? doc.name : doc.key}
                     description={doc.description}
-                    content={highlights}
+                    highlightContent={highlights}
+                    lastModifiedEpoch={doc['modifiedEpochTime']}
                 />
             }
         )

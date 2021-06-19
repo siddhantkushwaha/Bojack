@@ -72,8 +72,13 @@
     color: #39ff14;
 }
 
-.resultItemContent::-webkit-scrollbar{
+.resultItemContent::-webkit-scrollbar {
     display: none;
+}
+
+.lastModifiedTime {
+    font-size: 12px;
+    color: #393939
 }
 
 
