@@ -53,8 +53,7 @@ export default function Carolyn() {
                             </li>
                             <li className={`${style.answer}`}>We do not share or keep any user message or contact
                                 information. This information is
-                                only used for the purpose of showing it to you, the
-                                user.
+                                only used for the purpose of showing it to the user.
                             </li>
                         </ul>
                     </div>
