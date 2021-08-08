@@ -6,7 +6,8 @@ import style from './Sidebar.module.css'
 
 const linkToNameMap = {
     '/': 'Home',
-    '/scavenger': 'Scavenger'
+    '/scavenger': 'Scavenger',
+    '/carolyn': 'Carolyn',
 }
 
 const ActiveLink = ({href}) => {
@@ -41,6 +42,7 @@ const Sidebar = ({children}) => {
                 <div className={linkVisibilityState}>
                     <ActiveLink href="/"/>
                     <ActiveLink href="/scavenger"/>
+                    <ActiveLink href="/carolyn"/>
                 </div>
             </div>
             <div className={style.mainContent}>

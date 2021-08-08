@@ -1,0 +1,12 @@
+.screenshot {
+    border-radius: 16px;
+}
+
+.question {
+    color: #d0d0d0;
+}
+
+.answer {
+    color: #a5a5a5;
+    text-decoration: none;
+}

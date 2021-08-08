@@ -295,6 +295,7 @@ export default function Scavenger() {
                                 <li>How to derive useful insights from different kinds of documents?</li>
                             </ul>
 
+                            <p>This project is under development and may not always work.</p>
                         </div>
 
                         {/* This will be the SEARCH content section */}
