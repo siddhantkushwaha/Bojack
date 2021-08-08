@@ -11,8 +11,7 @@ export default function Carolyn() {
                 <div className="col-md-8 p-md-5">
                     <div>
                         <h5 className={`${style.question}`}>What is this?</h5>
-                        <p className={`${style.answer}`}>Carolyn is an Android app which understands if an sms message
-                            is important enough for it to bother you.</p>
+                        <p className={`${style.answer}`}>Carolyn is an Android app that helps you declutter your sms messages.</p>
                     </div>
 
                     <div className={`mt-4`}>
