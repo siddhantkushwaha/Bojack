@@ -11,7 +11,8 @@ export default function Carolyn() {
                 <div className="col-md-8 p-md-5">
                     <div>
                         <h5 className={`${style.question}`}>What is this?</h5>
-                        <p className={`${style.answer}`}>Carolyn is an Android app that helps you declutter your sms messages.</p>
+                        <p className={`${style.answer}`}>Carolyn is an Android app that helps you declutter your sms
+                            messages.</p>
                     </div>
 
                     <div className={`mt-4`}>
@@ -23,11 +24,9 @@ export default function Carolyn() {
 
                     <div className={`mt-4`}>
                         <h5 className={`${style.question}`}>Where is this?</h5>
-                        <p className={`${style.answer} m-0`}>Not on Play Store yet. I know. I'm trying.</p>
-                        <span className={`${style.answer}`}>Download from Google Drive. <a
-                            href="https://drive.google.com/drive/u/1/folders/1lujOGu_Zf5Aye2DnlJdmciaophPAXh7K"
-                            target="_blank"><i
-                            className="bi bi-file-arrow-down-fill"/></a></span>
+                        <p className={`${style.answer} m-0`}>On the <a style={{textDecoration: "none"}}
+                                                                       href="https://play.google.com/store/apps/details?id=com.siddhantkushwaha.carolyn"
+                                                                       target="_blank">Google Play Store.</a> Duh.</p>
                     </div>
 
                     <div className={`mt-4`}>
