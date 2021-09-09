@@ -26,7 +26,7 @@ export default function Carolyn() {
                         <h5 className={`${style.question}`}>Where is this?</h5>
                         <p className={`${style.answer} m-0`}>On the <a style={{textDecoration: "none"}}
                                                                        href="https://play.google.com/store/apps/details?id=com.siddhantkushwaha.carolyn"
-                                                                       target="_blank">Google Play Store.</a> Duh.</p>
+                                                                       target="_blank">Google Play Store.</a></p>
                     </div>
 
                     <div className={`mt-4`}>
