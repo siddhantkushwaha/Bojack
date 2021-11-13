@@ -41,7 +41,7 @@ const Sidebar = ({children}) => {
                 </div>
                 <div className={linkVisibilityState}>
                     <ActiveLink href="/"/>
-                    <ActiveLink href="/scavenger"/>
+                    {/*<ActiveLink href="/scavenger"/>*/}
                     <ActiveLink href="/carolyn"/>
                 </div>
             </div>
