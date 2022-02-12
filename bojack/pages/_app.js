@@ -4,8 +4,23 @@ import '../styles/globals.css'
 
 import Head from 'next/head'
 import Sidebar from '../components/sidebar'
+import {useRouter} from "next/router"
 
 function MyApp({Component, pageProps}) {
+
+    const router = useRouter()
+    const currentPath = router.pathname
+
+    const getBody = () => {
+        if (currentPath === '/carolyn') {
+            return <Component {...pageProps} />
+        } else {
+            return <Sidebar>
+                <Component {...pageProps} />
+            </Sidebar>
+        }
+    }
+
     return (
         <>
             <Head>
@@ -16,9 +31,8 @@ function MyApp({Component, pageProps}) {
                         integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
                         crossOrigin="anonymous"/>
             </Head>
-            <Sidebar>
-                <Component {...pageProps} />
-            </Sidebar>
+
+            {getBody(currentPath)}
         </>
     )
 }

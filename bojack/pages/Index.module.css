@@ -2,18 +2,6 @@ a.link {
     text-decoration: none;
 }
 
-.cardWork {
-    background-color: #232823;
-}
-
-.cardProject {
-    background-color: #282323;
-}
-
-.cardEducation {
-    background-color: #232328;
-}
-
 .profilePicture {
     width: 100%;
     border-radius: 50%
