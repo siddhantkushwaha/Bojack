@@ -6,13 +6,17 @@ import Head from 'next/head'
 import Sidebar from '../components/sidebar'
 import {useRouter} from "next/router"
 
+let withoutSidebar = [
+    '/carolyn', '/createBlog'
+]
+
 function MyApp({Component, pageProps}) {
 
     const router = useRouter()
     const currentPath = router.pathname
 
     const getBody = () => {
-        if (currentPath === '/carolyn') {
+        if (withoutSidebar.indexOf(currentPath) > -1) {
             return <Component {...pageProps} />
         } else {
             return <Sidebar>

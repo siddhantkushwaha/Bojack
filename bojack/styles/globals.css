@@ -1,17 +1,17 @@
 body {
-    background-color: #181818;
+    background-color: #ffffff;
     font-family: 'Helvetica';
     margin: 0;
 }
 
-body::-webkit-scrollbar {
-    width: 4px;
-}
+/*body::-webkit-scrollbar {*/
+/*    width: 4px;*/
+/*}*/
 
-body::-webkit-scrollbar-track {
-    background: #1d1d1d;
-}
+/*body::-webkit-scrollbar-track {*/
+/*    background: #1d1d1d;*/
+/*}*/
 
-body::-webkit-scrollbar-thumb {
-    background-color: #0e0e0e;
-}
+/*body::-webkit-scrollbar-thumb {*/
+/*    background-color: #0e0e0e;*/
+/*}*/

@@ -24,11 +24,12 @@ export default function Index() {
                         className="bi bi-instagram"/> __sidsidsid__</a></h5>
                 </div>
             </div>
+
             <hr/>
 
             {/* TODO add more here */}
 
-            <div className={style.bottomPad}/>
+
         </div>
     )
 }
