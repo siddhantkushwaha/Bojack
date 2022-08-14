@@ -61,31 +61,28 @@ export default function Carolyn() {
                     <div id="screenshots" className="carousel slide" data-bs-ride="carousel">
                         <div className="carousel-inner">
                             <div className="carousel-item active">
-                                <img src="/img/carolyn/Img_1.png" className={`d-block w-100 ${style.screenshot}`}/>
+                                <img src="/img/carolyn/Img_1.jpg" className={`d-block w-100 ${style.screenshot}`}/>
                             </div>
                             <div className="carousel-item">
-                                <img src="/img/carolyn/Img_2.png" className={`d-block w-100 ${style.screenshot}`}/>
+                                <img src="/img/carolyn/Img_2.jpg" className={`d-block w-100 ${style.screenshot}`}/>
                             </div>
                             <div className="carousel-item">
-                                <img src="/img/carolyn/Img_3.png" className={`d-block w-100 ${style.screenshot}`}/>
+                                <img src="/img/carolyn/Img_3.jpg" className={`d-block w-100 ${style.screenshot}`}/>
                             </div>
                             <div className="carousel-item">
-                                <img src="/img/carolyn/Img_4.png" className={`d-block w-100 ${style.screenshot}`}/>
+                                <img src="/img/carolyn/Img_4.jpg" className={`d-block w-100 ${style.screenshot}`}/>
                             </div>
                             <div className="carousel-item">
-                                <img src="/img/carolyn/Img_5.png" className={`d-block w-100 ${style.screenshot}`}/>
+                                <img src="/img/carolyn/Img_5.jpg" className={`d-block w-100 ${style.screenshot}`}/>
                             </div>
                             <div className="carousel-item">
-                                <img src="/img/carolyn/Img_6.png" className={`d-block w-100 ${style.screenshot}`}/>
+                                <img src="/img/carolyn/Img_6.jpg" className={`d-block w-100 ${style.screenshot}`}/>
                             </div>
                             <div className="carousel-item">
-                                <img src="/img/carolyn/Img_7.png" className={`d-block w-100 ${style.screenshot}`}/>
+                                <img src="/img/carolyn/Img_7.jpg" className={`d-block w-100 ${style.screenshot}`}/>
                             </div>
                             <div className="carousel-item">
-                                <img src="/img/carolyn/Img_8.png" className={`d-block w-100 ${style.screenshot}`}/>
-                            </div>
-                            <div className="carousel-item">
-                                <img src="/img/carolyn/Img_9.png" className={`d-block w-100 ${style.screenshot}`}/>
+                                <img src="/img/carolyn/Img_8.jpg" className={`d-block w-100 ${style.screenshot}`}/>
                             </div>
                         </div>
                         <button className="carousel-control-prev" type="button" data-bs-target="#screenshots"
