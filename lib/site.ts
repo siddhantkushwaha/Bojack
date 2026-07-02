@@ -8,7 +8,7 @@ export const site = {
   description:
     "Technical writing on backend engineering and the data protection, backup, and indexing systems I work on.",
   url: "https://example.com",
-  email: "siddhant.kushwaha@example.com",
+  email: "k16.siddhant@gmail.com",
   resumeUrl: "/resume.pdf",
   nav: [
     { href: "/", label: "Home" },
@@ -16,9 +16,9 @@ export const site = {
     { href: "/about", label: "About" },
   ],
   socials: [
-    { label: "GitHub", href: "https://github.com/" },
-    { label: "LinkedIn", href: "https://www.linkedin.com/" },
-    { label: "Email", href: "mailto:siddhant.kushwaha@example.com" },
+    { label: "GitHub", href: "https://github.com/siddhantkushwaha" },
+    { label: "LinkedIn", href: "https://www.linkedin.com/in/siddhantkushwaha/" },
+    { label: "Email", href: "mailto:k16.siddhant@gmail.com" },
   ],
 } as const;
 
