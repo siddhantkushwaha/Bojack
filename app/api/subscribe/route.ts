@@ -43,7 +43,7 @@ export async function POST(request: Request) {
   }
 
   // Best-effort forward to Buttondown when configured. A failure here does not
-  // fail the request — the email is already durably saved locally.
+  // fail the request; the email is already durably saved locally.
   const forward = await subscribeEmail(email);
   if (forward.status === "error") {
     console.error("Buttondown forward failed:", forward.message);

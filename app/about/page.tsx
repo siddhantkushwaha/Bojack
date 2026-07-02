@@ -11,7 +11,7 @@ import {
 
 export const metadata: Metadata = {
   title: "About",
-  description: `About ${site.name} — ${site.role}.`,
+  description: `About ${site.name}, ${site.role}.`,
 };
 
 function SectionHeading({ children }: { children: React.ReactNode }) {
@@ -31,9 +31,9 @@ export default function AboutPage() {
         </h1>
         <div className="mt-4 space-y-4 text-neutral-700 dark:text-neutral-300">
           <p>
-            I&apos;m {site.name}, a software engineer focused on data protection
-            — backup, recovery, and indexing systems that operate at large
-            scale. I&apos;m currently a Software Engineer 3 at Cohesity, and
+            I&apos;m {site.name}, a software engineer focused on data
+            protection: backup, recovery, and indexing systems that operate at
+            large scale. I&apos;m currently a Software Engineer 3 at Cohesity, and
             before that spent four and a half years at Commvault as a Senior
             Software Development Engineer.
           </p>
@@ -41,7 +41,7 @@ export default function AboutPage() {
             My work has ranged from indexing billions of objects across tens of
             thousands of laptops, to clone-based database recovery, to cache and
             retention strategies that cut storage cost. This site is where I
-            write about that work — the design decisions, the tradeoffs, and the
+            write about that work: the design decisions, the tradeoffs, and the
             things I learned the hard way.
           </p>
         </div>

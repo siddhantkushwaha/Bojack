@@ -1,5 +1,5 @@
 // Central place for site-wide, content-ish config. Edit these to make the
-// site yours — nav, socials, career, education, projects, and skills.
+// site yours: nav, socials, career, education, projects, and skills.
 
 export const site = {
   name: "Siddhant Kushwaha",
@@ -35,7 +35,7 @@ export const career: TimelineEntry[] = [
   {
     company: "Cohesity",
     role: "Software Engineer 3",
-    period: "August 2024 — Present",
+    period: "August 2024 - Present",
     summary:
       "Working on backup, recovery, and database protection for a large-scale data management platform.",
     highlights: [
@@ -47,7 +47,7 @@ export const career: TimelineEntry[] = [
   {
     company: "Commvault",
     role: "Senior Software Development Engineer",
-    period: "January 2020 — July 2024",
+    period: "January 2020 - July 2024",
     summary:
       "Worked on backup and large-scale indexing across the data protection stack.",
     highlights: [
@@ -71,7 +71,7 @@ export const education: EducationEntry[] = [
   {
     school: "Indian Institute of Information Technology, Sri City",
     credential: "B.Tech, Computer Science and Engineering",
-    period: "August 2016 — May 2020",
+    period: "August 2016 - May 2020",
     detail: "GPA: 8.22",
   },
   {
