@@ -14,9 +14,11 @@ export function Timeline({ entries }: { entries: TimelineEntry[] }) {
               {entry.period}
             </span>
           </div>
-          <p className="text-sm text-neutral-500 dark:text-neutral-400">
-            {entry.location}
-          </p>
+          {entry.location && (
+            <p className="text-sm text-neutral-500 dark:text-neutral-400">
+              {entry.location}
+            </p>
+          )}
           <p className="mt-2 text-neutral-700 dark:text-neutral-300">
             {entry.summary}
           </p>

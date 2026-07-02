@@ -1,11 +1,26 @@
 import type { Metadata } from "next";
 import { Timeline } from "@/components/Timeline";
-import { career, skills, site } from "@/lib/site";
+import {
+  achievements,
+  career,
+  education,
+  projects,
+  skills,
+  site,
+} from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "About",
   description: `About ${site.name} — ${site.role}.`,
 };
+
+function SectionHeading({ children }: { children: React.ReactNode }) {
+  return (
+    <h2 className="mb-6 text-xs font-semibold uppercase tracking-widest text-accent-fg dark:text-accent">
+      {children}
+    </h2>
+  );
+}
 
 export default function AboutPage() {
   return (
@@ -16,15 +31,18 @@ export default function AboutPage() {
         </h1>
         <div className="mt-4 space-y-4 text-neutral-700 dark:text-neutral-300">
           <p>
-            I&apos;m {site.name}, a backend engineer with around six years of
-            experience building data protection and management software, across
-            Commvault and Cohesity. I like the parts of the stack most people
-            don&apos;t see: correctness under failure, storage and metadata,
-            and pipelines that move a lot of data without losing any of it.
+            I&apos;m {site.name}, a software engineer focused on data protection
+            — backup, recovery, and indexing systems that operate at large
+            scale. I&apos;m currently a Software Engineer 3 at Cohesity, and
+            before that spent four and a half years at Commvault as a Senior
+            Software Development Engineer.
           </p>
           <p>
-            This site is where I write about that work — the design decisions,
-            the tradeoffs, and the things I learned the hard way.
+            My work has ranged from indexing billions of objects across tens of
+            thousands of laptops, to clone-based database recovery, to cache and
+            retention strategies that cut storage cost. This site is where I
+            write about that work — the design decisions, the tradeoffs, and the
+            things I learned the hard way.
           </p>
         </div>
         <div className="mt-6">
@@ -40,16 +58,73 @@ export default function AboutPage() {
       </section>
 
       <section className="mt-12">
-        <h2 className="mb-6 text-xs font-semibold uppercase tracking-widest text-accent-fg dark:text-accent">
-          Experience
-        </h2>
+        <SectionHeading>Experience</SectionHeading>
         <Timeline entries={career} />
       </section>
 
       <section className="mt-8">
-        <h2 className="mb-4 text-xs font-semibold uppercase tracking-widest text-accent-fg dark:text-accent">
-          Skills
-        </h2>
+        <SectionHeading>Education</SectionHeading>
+        <div className="space-y-5">
+          {education.map((e) => (
+            <div key={e.school}>
+              <div className="flex flex-wrap items-baseline justify-between gap-x-3">
+                <h3 className="text-base font-medium text-neutral-900 dark:text-neutral-100">
+                  {e.school}
+                </h3>
+                {e.period && (
+                  <span className="text-sm text-neutral-500 dark:text-neutral-400">
+                    {e.period}
+                  </span>
+                )}
+              </div>
+              <p className="text-neutral-700 dark:text-neutral-300">
+                {e.credential}
+                {e.location ? ` · ${e.location}` : ""}
+              </p>
+              {e.detail && (
+                <p className="text-sm text-neutral-500 dark:text-neutral-400">
+                  {e.detail}
+                </p>
+              )}
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="mt-10">
+        <SectionHeading>Projects</SectionHeading>
+        <div className="space-y-5">
+          {projects.map((p) => (
+            <div key={p.name}>
+              <h3 className="text-base font-medium text-neutral-900 dark:text-neutral-100">
+                {p.name}
+              </h3>
+              <p className="mt-1 text-neutral-700 dark:text-neutral-300">
+                {p.description}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="mt-10">
+        <SectionHeading>Achievements</SectionHeading>
+        <ul className="space-y-4">
+          {achievements.map((a) => (
+            <li key={a.title}>
+              <p className="font-medium text-neutral-900 dark:text-neutral-100">
+                {a.title}
+              </p>
+              <p className="mt-1 text-neutral-700 dark:text-neutral-300">
+                {a.description}
+              </p>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section className="mt-10">
+        <SectionHeading>Skills</SectionHeading>
         <div className="grid gap-4 sm:grid-cols-3">
           {skills.map((group) => (
             <div key={group.group}>
