@@ -10,11 +10,19 @@ export const site = {
   url: "https://example.com",
   email: "k16.siddhant@gmail.com",
   resumeUrl: "/resume.pdf",
+  // Posts tagged with this are personal; they surface on /life, not /blog.
+  personalTag: "life",
   nav: [
     { href: "/", label: "Home" },
     { href: "/blog", label: "Blog" },
+    { href: "/life", label: "Life" },
     { href: "/about", label: "About" },
   ],
+  life: {
+    title: "Life",
+    intro:
+      "Work is only part of the picture. Outside it, a lot of my time goes into fitness and sport: the same appetite for steady, compounding progress that I bring to engineering.",
+  },
   socials: [
     { label: "GitHub", href: "https://github.com/siddhantkushwaha" },
     { label: "LinkedIn", href: "https://www.linkedin.com/in/siddhantkushwaha/" },

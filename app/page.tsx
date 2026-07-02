@@ -1,11 +1,11 @@
 import Link from "next/link";
-import { getAllPosts } from "@/lib/posts";
+import { getPublicPosts } from "@/lib/posts";
 import { PostCard } from "@/components/PostCard";
 import { SubscribeForm } from "@/components/SubscribeForm";
 import { site } from "@/lib/site";
 
 export default function HomePage() {
-  const posts = getAllPosts().slice(0, 5);
+  const posts = getPublicPosts().slice(0, 5);
 
   return (
     <div>

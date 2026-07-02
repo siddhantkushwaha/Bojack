@@ -20,6 +20,10 @@ beforeAll(() => {
     path.join(tmpDir, "newer-post.mdx"),
     `---\ntitle: "Newer Post"\ndate: "2026-03-01"\nsummary: "Second."\ntags: ["a", "b"]\n---\n\nBody of the newer post.\n`,
   );
+  fs.writeFileSync(
+    path.join(tmpDir, "life-post.mdx"),
+    `---\ntitle: "Life Post"\ndate: "2026-04-01"\nsummary: "Personal."\ntags: ["life"]\n---\n\nA personal post.\n`,
+  );
 });
 
 afterAll(() => {
@@ -29,7 +33,11 @@ afterAll(() => {
 describe("posts library", () => {
   it("discovers MDX posts in the configured directory", async () => {
     const { getPostSlugs } = await import("@/lib/posts");
-    expect(getPostSlugs().sort()).toEqual(["newer-post", "older-post"]);
+    expect(getPostSlugs().sort()).toEqual([
+      "life-post",
+      "newer-post",
+      "older-post",
+    ]);
   });
 
   it("parses frontmatter and computes reading time", async () => {
@@ -44,7 +52,20 @@ describe("posts library", () => {
   it("returns posts sorted newest-first", async () => {
     const { getAllPosts } = await import("@/lib/posts");
     const posts = getAllPosts();
-    expect(posts.map((p) => p.slug)).toEqual(["newer-post", "older-post"]);
+    expect(posts.map((p) => p.slug)).toEqual([
+      "life-post",
+      "newer-post",
+      "older-post",
+    ]);
+  });
+
+  it("splits personal posts out of the public list", async () => {
+    const { getPublicPosts, getPersonalPosts } = await import("@/lib/posts");
+    expect(getPublicPosts().map((p) => p.slug).sort()).toEqual([
+      "newer-post",
+      "older-post",
+    ]);
+    expect(getPersonalPosts().map((p) => p.slug)).toEqual(["life-post"]);
   });
 
   it("returns null for an unknown slug", async () => {

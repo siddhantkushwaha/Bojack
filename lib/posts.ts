@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
 import readingTime from "reading-time";
+import { site } from "./site";
 
 // Resolved per call so tests can point it at a fixtures directory via POSTS_DIR.
 function postsDir(): string {
@@ -67,6 +68,17 @@ export function getAllPosts(): PostMeta[] {
     .filter((p) => showDrafts || !p.draft)
     .sort((a, b) => (a.date < b.date ? 1 : -1))
     .map(({ content: _content, ...meta }) => meta);
+}
+
+// Professional posts: everything not tagged with the personal tag. Used by the
+// main blog and homepage so those surfaces stay focused on technical writing.
+export function getPublicPosts(): PostMeta[] {
+  return getAllPosts().filter((p) => !p.tags.includes(site.personalTag));
+}
+
+// Personal posts (fitness, life, etc.), surfaced on /life.
+export function getPersonalPosts(): PostMeta[] {
+  return getAllPosts().filter((p) => p.tags.includes(site.personalTag));
 }
 
 export function getAllTags(): string[] {
