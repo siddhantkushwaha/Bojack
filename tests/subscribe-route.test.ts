@@ -7,7 +7,7 @@ import path from "node:path";
 let tmpDir: string;
 
 beforeAll(() => {
-  tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "myblog-route-"));
+  tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "bojack-route-"));
   process.env.DATABASE_PATH = path.join(tmpDir, "app.db");
 });
 

@@ -85,7 +85,7 @@ because the email is already saved locally.
 - **Engine:** SQLite (`better-sqlite3`), synchronous, no ORM.
 - **File:** `DATABASE_PATH` env, default `./data/app.db` locally,
   `/app/data/app.db` in the container.
-- **Persistence in Docker:** a named volume (`myblog-data`) mounted at
+- **Persistence in Docker:** a named volume (`bojack-data`) mounted at
   `/app/data`. `.dockerignore` excludes `data/` so a local dev DB never leaks
   into the image.
 - **Schema:** created lazily on first query (`CREATE TABLE IF NOT EXISTS`).

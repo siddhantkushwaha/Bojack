@@ -12,14 +12,17 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     python3 make g++ \
   && rm -rf /var/lib/apt/lists/*
 COPY package.json package-lock.json* ./
-RUN npm ci
+# Cache the npm download cache so re-installs (when deps change) are faster.
+RUN --mount=type=cache,target=/root/.npm npm ci
 
 # ---- Builder ----
 FROM base AS builder
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 ENV NEXT_TELEMETRY_DISABLED=1
-RUN npm run build
+# Persist Next.js's build cache across builds so a content-only change does an
+# incremental recompile instead of a cold one.
+RUN --mount=type=cache,target=/app/.next/cache npm run build
 
 # ---- Runner (production) ----
 FROM base AS runner

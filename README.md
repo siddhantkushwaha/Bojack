@@ -1,4 +1,4 @@
-# myblog
+# bojack
 
 A minimal, professional personal site — technical blog + career page — for a
 backend engineer. Built with Next.js (App Router), MDX content in git, Tailwind
@@ -81,7 +81,7 @@ BUTTONDOWN_API_KEY=your_key docker compose up --build
 ```
 
 The image uses Next.js `standalone` output and runs as a non-root user. The
-SQLite database is stored in the `myblog-data` named volume, so subscribers
+SQLite database is stored in the `bojack-data` named volume, so subscribers
 survive `docker compose down` / `up`. To wipe it, tear down with the volume:
 
 ```bash
@@ -91,7 +91,10 @@ docker compose down -v
 ## Making it yours
 
 - Edit `lib/site.ts` — name, tagline, socials, career timeline, and skills.
-- Replace `public/resume.pdf` with your real résumé.
+- Replace `public/resume.pdf` with your real résumé. In Docker the `public/`
+  folder is bind-mounted from the host (see `docker-compose.yml`), so you can
+  swap the PDF on the server and it goes live on the next request with no
+  rebuild. Locally, just replace the file.
 - Replace the seed posts in `content/posts/`.
 
 ## Roadmap

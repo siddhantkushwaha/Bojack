@@ -1,9 +1,11 @@
+name: bojack
+
 services:
   web:
     build:
       context: .
       dockerfile: Dockerfile
-    image: myblog:latest
+    image: bojack:latest
     ports:
       - "3000:3000"
     environment:
@@ -13,8 +15,12 @@ services:
       - BUTTONDOWN_API_KEY=${BUTTONDOWN_API_KEY:-}
     volumes:
       # Named volume keeps the SQLite database across container restarts.
-      - myblog-data:/app/data
+      - bojack-data:/app/data
+      # Serve static files (e.g. the résumé) from the host's public/ folder.
+      # Drop a new public/resume.pdf on the host and it's live on next request,
+      # no image rebuild. Read-only: the app only serves these.
+      - ./public:/app/public:ro
     restart: unless-stopped
 
 volumes:
-  myblog-data:
+  bojack-data:
