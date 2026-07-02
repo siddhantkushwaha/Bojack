@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+.dark {
+  color-scheme: dark;
+}
+
+body {
+  @apply bg-white text-neutral-900 antialiased dark:bg-neutral-950 dark:text-neutral-100;
+}
+
+/* rehype-pretty-code: line-level styling and a readable code surface. */
+pre {
+  @apply overflow-x-auto rounded-lg border border-neutral-200 bg-neutral-50 p-4 text-sm dark:border-neutral-800 dark:bg-neutral-900;
+}
+
+pre code {
+  display: grid;
+  background: transparent;
+  padding: 0;
+}
+
+code[data-line-numbers] {
+  counter-reset: line;
+}
+
+code[data-line-numbers] > [data-line]::before {
+  counter-increment: line;
+  content: counter(line);
+  @apply mr-4 inline-block w-4 text-right text-neutral-400;
+}
+
+/* Shiki emits two color sets; show the one matching the active theme. */
+[data-line] span {
+  color: var(--shiki-light);
+}
+
+.dark [data-line] span {
+  color: var(--shiki-dark);
+}
+
+figure[data-rehype-pretty-code-figure] figcaption {
+  @apply mb-2 text-xs font-medium text-neutral-500 dark:text-neutral-400;
+}

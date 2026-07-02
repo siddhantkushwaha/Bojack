@@ -1,0 +1,51 @@
+---
+title: "What I learned scaling metadata stores"
+date: "2026-05-03"
+summary: "The data plane gets the headlines, but the metadata store is usually what falls over first. A tour of the failure modes and the fixes."
+tags: ["databases", "systems"]
+---
+
+When people picture a storage system, they picture the bytes. But in most
+systems I've worked on, the bytes are the easy part — object storage scales
+almost linearly and someone else operates it. The thing that actually keeps
+you up at night is the **metadata store**: the index that knows *where* every
+byte lives.
+
+![Data plane and metadata plane sit side by side; clients hit metadata first, then stream bytes from the data plane.](/posts/metadata-architecture.svg)
+
+## Why metadata is harder than data
+
+Data access is mostly append-and-read. Metadata access is small, random, and
+**transactional** — and it sits on the hot path of every single operation.
+
+| Property        | Data plane        | Metadata plane      |
+| --------------- | ----------------- | ------------------- |
+| Object size     | MB–GB             | bytes–KB            |
+| Access pattern  | sequential        | random              |
+| Consistency     | eventual is fine  | usually strong      |
+| QPS             | low               | very high           |
+| Failure blast   | one object        | the whole system    |
+
+## Three failures I've actually hit
+
+- **Hot partitions.** A monotonic key (timestamp, autoincrement) funnels every
+  write to one shard. Fix: hash-prefix the key so writes spread.
+- **Read amplification.** One logical read fanning into dozens of point
+  lookups. Fix: denormalize the read path and cache aggressively.
+- **Unbounded transactions.** A "small" cleanup job holding a transaction open
+  across millions of rows. Fix: chunk it, and make each chunk idempotent.
+
+## A rule of thumb for sizing
+
+If your metadata is roughly a fixed fraction $f$ of logical data size $D$, and
+a single node holds $C$ bytes of index, the node count you need is at least:
+
+$$
+N = \left\lceil \frac{f \cdot D}{C} \right\rceil
+$$
+
+The uncomfortable part: $f$ is rarely constant. Small-object-heavy workloads
+push $f$ up by an order of magnitude, and the metadata tier tips over long
+before the data tier feels a thing.
+
+Design the metadata store as if it's the product. Often, operationally, it is.

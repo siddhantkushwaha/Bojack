@@ -1,0 +1,20 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: myblog:latest
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE_PATH=/app/data/app.db
+      # Optional: forward new subscribers to Buttondown as well as saving them
+      # locally. Without a key, subscriptions are still saved to SQLite.
+      - BUTTONDOWN_API_KEY=${BUTTONDOWN_API_KEY:-}
+    volumes:
+      # Named volume keeps the SQLite database across container restarts.
+      - myblog-data:/app/data
+    restart: unless-stopped
+
+volumes:
+  myblog-data:
