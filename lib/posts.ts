@@ -3,7 +3,10 @@ import path from "node:path";
 import matter from "gray-matter";
 import readingTime from "reading-time";
 
-const POSTS_DIR = path.join(process.cwd(), "content", "posts");
+// Resolved per call so tests can point it at a fixtures directory via POSTS_DIR.
+function postsDir(): string {
+  return process.env.POSTS_DIR || path.join(process.cwd(), "content", "posts");
+}
 
 export type PostFrontmatter = {
   title: string;
@@ -27,15 +30,16 @@ function slugFromFilename(filename: string): string {
 }
 
 export function getPostSlugs(): string[] {
-  if (!fs.existsSync(POSTS_DIR)) return [];
+  const dir = postsDir();
+  if (!fs.existsSync(dir)) return [];
   return fs
-    .readdirSync(POSTS_DIR)
+    .readdirSync(dir)
     .filter((f) => /\.mdx?$/.test(f))
     .map(slugFromFilename);
 }
 
 export function getPostBySlug(slug: string): Post | null {
-  const fullPath = path.join(POSTS_DIR, `${slug}.mdx`);
+  const fullPath = path.join(postsDir(), `${slug}.mdx`);
   if (!fs.existsSync(fullPath)) return null;
 
   const raw = fs.readFileSync(fullPath, "utf8");
