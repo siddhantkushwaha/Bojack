@@ -6,6 +6,7 @@ import { getPostBySlug, getPostSlugs } from "@/lib/posts";
 import { mdxOptions } from "@/lib/mdx";
 import { mdxComponents } from "@/components/mdx-components";
 import { formatDate } from "@/lib/format";
+import { pageMeta } from "@/lib/seo";
 
 type Params = { slug: string };
 
@@ -20,11 +21,12 @@ export function generateMetadata({
 }): Metadata {
   const post = getPostBySlug(params.slug);
   if (!post) return {};
-  return {
+  return pageMeta({
     title: post.title,
     description: post.summary,
-    openGraph: { title: post.title, description: post.summary, type: "article" },
-  };
+    path: `/blog/${post.slug}`,
+    type: "article",
+  });
 }
 
 export default function PostPage({ params }: { params: Params }) {

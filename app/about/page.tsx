@@ -8,11 +8,13 @@ import {
   skills,
   site,
 } from "@/lib/site";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: "About",
   description: `About ${site.name}, ${site.role}.`,
-};
+  path: "/about",
+});
 
 function SectionHeading({ children }: { children: React.ReactNode }) {
   return (

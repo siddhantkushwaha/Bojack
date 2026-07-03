@@ -2,11 +2,13 @@ import type { Metadata } from "next";
 import { getPersonalPosts } from "@/lib/posts";
 import { PostCard } from "@/components/PostCard";
 import { site } from "@/lib/site";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: site.life.title,
   description: "Life outside work: fitness, sport, and the occasional note.",
-};
+  path: "/life",
+});
 
 export default function LifePage() {
   const posts = getPersonalPosts();

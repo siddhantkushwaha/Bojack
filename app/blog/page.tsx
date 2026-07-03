@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import { getPublicPosts } from "@/lib/posts";
 import { PostCard } from "@/components/PostCard";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: "Blog",
   description: "Technical articles on backend engineering and distributed systems.",
-};
+  path: "/blog",
+});
 
 export default function BlogPage() {
   const posts = getPublicPosts();

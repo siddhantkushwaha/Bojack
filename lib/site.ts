@@ -7,9 +7,11 @@ export const site = {
   tagline: "Software Engineer 3 at Cohesity · backup, recovery, and large-scale data indexing",
   description:
     "Technical writing on backend engineering and the data protection, backup, and indexing systems I work on.",
-  url: "https://example.com",
+  url: "https://www.siddhantkushwaha.in",
   email: "k16.siddhant@gmail.com",
   resumeUrl: "/resume.pdf",
+  // Social-share preview image (1200x630), served from /public.
+  ogImage: "/og.png",
   // Posts tagged with this are personal; they surface on /life, not /blog.
   personalTag: "life",
   nav: [

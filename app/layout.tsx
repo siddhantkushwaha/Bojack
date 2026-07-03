@@ -6,6 +6,10 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { site } from "@/lib/site";
 
+const ogImage = [
+  { url: site.ogImage, width: 1200, height: 630, alt: site.name },
+];
+
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
@@ -14,9 +18,12 @@ export const metadata: Metadata = {
   },
   description: site.description,
   openGraph: {
-    title: site.name,
+    title: `${site.name} · ${site.role}`,
     description: site.description,
+    url: "/",
+    siteName: site.name,
     type: "website",
+    images: ogImage,
   },
 };
 
