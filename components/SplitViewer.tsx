@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState, type TouchEvent } from "react";
 
 const days = [
   {
@@ -70,10 +70,24 @@ const days = [
 
 export function SplitViewer() {
   const [selected, setSelected] = useState(0);
+  const touchStartX = useRef<number | null>(null);
 
   const selectDay = (index: number) => {
     setSelected(index);
     document.getElementById(days[index].day.toLowerCase().replaceAll(" ", "-"))?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  const handleTouchStart = (event: TouchEvent<HTMLDivElement>) => {
+    touchStartX.current = event.touches[0]?.clientX ?? null;
+  };
+
+  const handleTouchEnd = (event: TouchEvent<HTMLDivElement>) => {
+    if (touchStartX.current === null) return;
+    const distance = event.changedTouches[0].clientX - touchStartX.current;
+    touchStartX.current = null;
+    if (Math.abs(distance) < 50) return;
+    const nextIndex = distance < 0 ? Math.min(selected + 1, days.length - 1) : Math.max(selected - 1, 0);
+    if (nextIndex !== selected) selectDay(nextIndex);
   };
 
   return (
@@ -84,7 +98,7 @@ export function SplitViewer() {
       <nav className="split-tabs" aria-label="Training days">
         {days.map((item, index) => <button className={selected === index ? "is-active" : ""} key={item.day} type="button" onClick={() => selectDay(index)}>{item.title}</button>)}
       </nav>
-      <div className="split-days">
+      <div className="split-days" onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
         {days.map((item, index) => <section className={`split-day ${selected === index ? "is-selected" : ""}`} key={item.day} id={item.day.toLowerCase().replaceAll(" ", "-")}><div className="split-day-heading"><div><p className="split-kicker">{item.day}</p><h2>{item.title}</h2></div>{item.exercises.length > 0 && <span>{item.exercises.length} exercises</span>}</div>{item.exercises.length > 0 ? <ol>{item.exercises.map(([name, prescription]) => <li key={name}><strong>{name}</strong><span>{prescription}</span></li>)}</ol> : <p className="split-rest">Rest</p>}</section>)}
       </div>
     </main>
