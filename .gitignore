@@ -38,3 +38,5 @@ yarn-error.log*
 
 # local sqlite database
 /data
+!/data/
+!/data/workouts.json
