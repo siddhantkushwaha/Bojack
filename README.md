@@ -32,14 +32,14 @@ npm run build        # production build (standalone output)
 npm run test         # run the test suite
 npm run typecheck    # tsc --noEmit
 npm run lint         # next lint
-npm run analyze:workouts # refresh the Hevy workout page data
+npm run analyze:workouts # refresh the training page data
 ```
 
 ## Workout archive
 
-Place the latest Hevy export at `temp/workout_data.csv`, then run
+Place the latest workout CSV at `temp/workout_data.csv`, then run
 `npm run analyze:workouts`. The script normalizes set rows into session,
-monthly, weekday, and movement summaries for the `/fitness` page. The source
+monthly, weekday, and movement summaries for the `/training` page. The source
 CSV stays local; only the derived `data/workouts.json` is used by the site.
 
 ## Writing a post

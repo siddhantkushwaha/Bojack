@@ -13,6 +13,8 @@ README.md
 coverage
 docs
 data
+!data/
+!data/workouts.json
 *.db
 *.db-shm
 *.db-wal
