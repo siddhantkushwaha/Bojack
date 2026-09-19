@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import workoutData from "@/data/workouts.json";
 import { WorkoutExplorer } from "@/components/WorkoutExplorer";
 
@@ -32,7 +33,7 @@ export default function FitnessPage() {
     <div className="fitness-page">
       <header className="fitness-header">
         <div><p className="fitness-kicker">Training</p><h1>Training / 2025-26</h1></div>
-        <p className="fitness-meta">{formatDate(workoutData.overview.dateStart)} - {formatDate(workoutData.overview.dateEnd)}</p>
+        <p className="fitness-meta">{formatDate(workoutData.overview.dateStart)} - {formatDate(workoutData.overview.dateEnd)}<br /><Link href="/split">Current split</Link></p>
       </header>
       <section className="fitness-stats" aria-label="Training totals"><div><span>Sessions</span><strong>{formatNumber(workoutData.overview.sessions)}</strong></div><div><span>Working sets</span><strong>{formatNumber(workoutData.overview.sets)}</strong></div><div><span>Volume</span><strong>{formatNumber(workoutData.overview.volume)} <small>kg</small></strong></div><div><span>Average duration</span><strong>{workoutData.overview.avgSessionMinutes} <small>min</small></strong></div></section>
       <section className="fitness-section"><div className="fitness-section-heading"><div><p className="fitness-kicker">Weekly volume</p><h2>Last 16 weeks</h2></div><span>kg · max {formatNumber(maxWeekVolume)}</span></div><div className="fitness-bars weekly-bars" aria-label="Weekly volume chart">{workoutData.weeks.map((week) => <div className="fitness-bar-column" key={week.label}><strong>{formatCompact(week.volume)}</strong><div className="fitness-bar-track"><i style={{ height: `${Math.max(3, (week.volume / maxWeekVolume) * 100)}%` }} /></div><small>{week.label}</small></div>)}</div><p className="fitness-note">kg per bar · working sets</p></section>
