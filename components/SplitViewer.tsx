@@ -94,6 +94,7 @@ export function SplitViewer() {
     <main className="split-page">
       <header className="split-header">
         <div><p className="split-kicker">Training</p><h1>Current split</h1></div>
+        <button className="split-print" type="button" onClick={() => window.print()}>Save as PDF</button>
       </header>
       <nav className="split-tabs" aria-label="Training days">
         {days.map((item, index) => <button className={selected === index ? "is-active" : ""} key={item.day} type="button" onClick={() => selectDay(index)}>{item.title}</button>)}
