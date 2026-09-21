@@ -28,7 +28,7 @@ export function WorkoutExplorer({ sessions }: { sessions: WorkoutSession[] }) {
   const [query, setQuery] = useState("");
   const [selectedStart, setSelectedStart] = useState(sessions[0]?.start ?? "");
   const selected = sessions.find((session) => session.start === selectedStart) ?? sessions[0];
-  const filteredSessions = sessions.filter((session) => `${session.title} ${formatDate(session.start)}`.toLowerCase().includes(query.toLowerCase()));
+  const filteredSessions = sessions.filter((session) => `${session.title} ${formatDate(session.start)} ${session.movements.map((movement) => movement.name).join(" ")}`.toLowerCase().includes(query.toLowerCase()));
 
   return (
     <section className="workout-explorer">
