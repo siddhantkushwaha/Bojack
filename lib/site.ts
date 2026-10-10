@@ -4,7 +4,7 @@
 export const site = {
   name: "Siddhant Kushwaha",
   role: "Software Engineer",
-  tagline: "Software Engineer 3 at Cohesity · backup, recovery, and large-scale data indexing",
+  tagline: "Software Engineer 3 at Cohesity · ML-powered data catalog, backup, and recovery",
   description:
     "Technical writing on backend engineering and the data protection, backup, and indexing systems I work on.",
   url: "https://www.siddhantkushwaha.in",
@@ -48,11 +48,12 @@ export const career: TimelineEntry[] = [
     role: "Software Engineer 3",
     period: "August 2024 - Present",
     summary:
-      "Working on backup, recovery, and database protection for a large-scale data management platform.",
+      "Building machine-learning, backup, recovery, and database-protection capabilities for a large-scale data management platform.",
     highlights: [
-      "Built a proof of concept to deploy an external NFS service outside Cohesity's cluster, enabling new backup and restore workflows.",
-      "Increased unit-test coverage by 50% across team-owned components, reducing regression bugs and field issues.",
-      "Developed clone-based recovery for Oracle CDB databases on Linux and AIX, enabling faster and more space-efficient restores than traditional methods.",
+      "Built a machine-learning document-classification service that scans backup data, extracts text with Apache Tika, and tags files for a data catalog using Go and Python on CPU-only compute nodes.",
+      "Designed a configurable tagging pipeline with pluggable ML classifiers, streaming data transfer over gRPC, and health checks for reliable Kubernetes deployment.",
+      "Developed clone-based recovery support for Oracle CDB databases on Linux and AIX, improving restore speed by 50% compared with traditional methods.",
+      "Extended Cohesity's data protection platform to back up and recover Oracle databases running on AWS.",
     ],
   },
   {
@@ -137,7 +138,7 @@ export const achievements: Achievement[] = [
 export const skills: { group: string; items: string[] }[] = [
   {
     group: "Languages",
-    items: ["C", "C++", "Java", "Kotlin", "Python", "JavaScript"],
+    items: ["C", "C++", "Go", "Java", "Kotlin", "Python", "JavaScript"],
   },
   {
     group: "Fundamentals",
@@ -151,6 +152,9 @@ export const skills: { group: string; items: string[] }[] = [
       "MS SQL",
       "MongoDB",
       "Apache SOLR",
+      "Apache Tika",
+      "gRPC",
+      "Kubernetes",
       "Android SDK",
       "Django",
       "Spring",
