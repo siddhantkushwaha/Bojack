@@ -13,6 +13,7 @@ const days = [
       ["Incline Bench Press (DB)", "3 x 8-12"],
       ["Lateral Raise (DB)", "3 x 12-20"],
       ["Overhead Triceps Extension (Cable)", "2-3 x 10-15"],
+      ["Face Pull", "2-3 x 12-20"],
     ],
   },
   {
@@ -21,10 +22,10 @@ const days = [
     exercises: [
       ["Squat (Bar)", "Build up to 1 top set x 4-6, then reduce load for 3 back-off sets x 5-8"],
       ["Bulgarian Split Squat (DB)", "3 x 8-12 each leg"],
+      ["Leg Extension (Machine)", "3 x 10-15"],
       ["Lying Leg Curl (Machine)", "3 x 8-15"],
       ["Standing Calf Raise (Machine)", "3 x 8-15"],
       ["Hip Abduction (Machine) / Cossack Squat", "2-3 x 12-20 or 6-10 each side"],
-      ["Decline Crunch or Toes-to-Bar", "3 x 8-15"],
     ],
   },
   {
@@ -37,7 +38,7 @@ const days = [
       ["Lat Pulldown (Cable), medium-to-wide overhand grip", "3 x 8-12"],
       ["Lateral Raise (Cable)", "3 x 12-20"],
       ["Seated Incline Curl (DB)", "3 x 8-15"],
-      ["Face Pull", "2-3 x 12-20"],
+      ["Decline Crunch or Toes-to-Bar", "3 x 8-15"],
     ],
   },
   {
@@ -45,12 +46,11 @@ const days = [
     title: "Lower B",
     exercises: [
       ["Romanian Deadlift (Bar) / Single-Leg Romanian Deadlift (DB)", "3-4 x 6-10"],
-      ["Leg Press (Machine)", "3 x 8-12"],
+      ["Pendulum Squat / Leg Press", "3 x 8-12"],
       ["Walking Lunge (DB)", "3 x 8-12 each leg"],
       ["Lying Leg Curl (Machine)", "3 x 10-15"],
       ["Seated Calf Raise", "3 x 12-20"],
       ["Hip Adduction (Machine) / Hip Internal and External Rotation", "2-3 x 12-20"],
-      ["Leg Extension (Machine)", "3 x 10-15"],
     ],
   },
   {
